@@ -8,6 +8,15 @@ app:
     max-pool-size: 100
 
 spring:
+
+ # Ruslan Stepanov's config
+
+  config:
+    import: optional:application-secrets.properties
+
+#  profiles:
+#    active: prod
+
   init:
     mode: never
   jpa:
@@ -25,10 +34,10 @@ spring:
         default_batch_fetch_size: 20
         # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
         jdbc.batch_size: 20
-  datasource:
-    url: jdbc:postgresql://localhost:5432/jira
-    username: jira
-    password: JiraRush
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/jira
+#    username: jira
+#    password: JiraRush
 
   liquibase:
     changeLog: "classpath:db/changelog.sql"
@@ -118,8 +127,6 @@ spring:
 
   mvc.throw-exception-if-no-handler-found: true
   web.resources.add-mappings: false
-  profiles:
-    active: prod
 
 logging:
   level:
