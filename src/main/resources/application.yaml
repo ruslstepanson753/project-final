@@ -9,7 +9,7 @@ app:
 
 spring:
 
- # Ruslan Stepanov's config ----- start
+ # Ruslan Stepanov's config --------------------------------------------------------------- start
 
 #  profiles:
 #    active: prod
@@ -40,10 +40,15 @@ spring:
             user-info-uri: https://gitlab.com/api/v4/user
             user-name-attribute: email
 
-  # Ruslan Stepanov's config ----- end
+  # Ruslan Stepanov's config --------------------------------------------------------------- end
 
   init:
     mode: never
+
+  sql:
+    init:
+      mode: always
+
   jpa:
     show-sql: true
     open-in-view: false
@@ -76,10 +81,6 @@ spring:
     cache-names: users
     caffeine.spec: maximumSize=10000,expireAfterAccess=5m
 
-  sql:
-    init:
-      mode: always
-
   mail:
     properties:
       mail:
@@ -88,8 +89,6 @@ spring:
             enable: true
           auth: true
     host: smtp.gmail.com
-    username: jira4jr@gmail.com
-    password: zdfzsrqvgimldzyj
     port: 587
   thymeleaf.check-template-location: false
 
