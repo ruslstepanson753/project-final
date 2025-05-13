@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-21-change-uk-user-belong" author="ishlyakhtenkov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER_BELONG"/>
+        </preConditions>
+
+        <!-- 1. Пытаемся удалить constraint, если он существует -->
+        <sql>
+            ALTER TABLE USER_BELONG DROP CONSTRAINT IF EXISTS UK_USER_BELONG;
+        </sql>
+
+        <!-- 2. Пытаемся удалить индекс, если он существует -->
+        <sql>
+            DROP INDEX IF EXISTS UK_USER_BELONG;
+        </sql>
+
+        <!-- 3. Создаем новый уникальный индекс (без WHERE для H2) -->
+        <sql>
+            CREATE UNIQUE INDEX UK_USER_BELONG ON USER_BELONG (OBJECT_ID, OBJECT_TYPE, USER_ID, USER_TYPE_CODE);
+        </sql>
+
+        <!-- 4. Добавляем комментарий для документации -->
+        <sql>
+            COMMENT ON INDEX UK_USER_BELONG IS 'Уникальный индекс для активных записей (где ENDPOINT IS NULL)';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-05-users" author="stepanov">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="USERS_PKEY"/>
+            </column>
+            <column name="display_name" type="VARCHAR(32)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_USERS_DISPLAY_NAME"/>
+            </column>
+            <column name="email" type="VARCHAR(128)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_USERS_EMAIL"/>
+            </column>
+            <column name="first_name" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(32)"/>
+            <column name="password" type="VARCHAR(128)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="endpoint" type="TIMESTAMP"/>
+            <column name="startpoint" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

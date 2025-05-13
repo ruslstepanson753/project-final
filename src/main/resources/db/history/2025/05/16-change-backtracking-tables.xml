@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-16-change-backtracking-tables" author="gkislin">
+        <!-- Изменения для таблицы SPRINT -->
+        <renameColumn tableName="SPRINT"
+                      oldColumnName="TITLE"
+                      newColumnName="CODE"
+                      columnDataType="VARCHAR(32)"/>
+
+        <modifyDataType tableName="SPRINT"
+                        columnName="CODE"
+                        newDataType="VARCHAR(32)"/>
+
+        <addNotNullConstraint tableName="SPRINT"
+                              columnName="CODE"
+                              columnDataType="VARCHAR(32)"/>
+
+        <createIndex tableName="SPRINT"
+                     indexName="UK_SPRINT_PROJECT_CODE">
+            <column name="PROJECT_ID"/>
+            <column name="CODE"/>
+        </createIndex>
+
+        <!-- Изменения для таблицы TASK -->
+        <dropColumn tableName="TASK"
+                    columnName="DESCRIPTION"/>
+
+        <dropColumn tableName="TASK"
+                    columnName="PRIORITY_CODE"/>
+
+        <dropColumn tableName="TASK"
+                    columnName="ESTIMATE"/>
+
+        <dropColumn tableName="TASK"
+                    columnName="UPDATED"/>
+    </changeSet>
+</databaseChangeLog>

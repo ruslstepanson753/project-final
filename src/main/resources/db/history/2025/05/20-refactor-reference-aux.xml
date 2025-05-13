@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-20-refactor-reference-aux" author="apolik">
+        <preConditions>
+            <tableExists tableName="REFERENCE"/>
+        </preConditions>
+
+        <!-- First delete all existing task types (REF_TYPE = 3) -->
+        <delete tableName="REFERENCE">
+            <where>REF_TYPE = 3</where>
+        </delete>
+
+        <!-- Then insert the new task type definitions with refactored AUX field -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="todo"/>
+            <column name="TITLE" value="ToDo"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="in_progress,canceled|"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="in_progress"/>
+            <column name="TITLE" value="In progress"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="ready_for_review,canceled|task_developer"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="ready_for_review"/>
+            <column name="TITLE" value="Ready for review"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="in_progress,review,canceled|"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="review"/>
+            <column name="TITLE" value="Review"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="in_progress,ready_for_test,canceled|task_reviewer"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="ready_for_test"/>
+            <column name="TITLE" value="Ready for test"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="review,test,canceled|"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="test"/>
+            <column name="TITLE" value="Test"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="done,in_progress,canceled|task_tester"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="done"/>
+            <column name="TITLE" value="Done"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="canceled|"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="canceled"/>
+            <column name="TITLE" value="Canceled"/>
+            <column name="REF_TYPE" value="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
