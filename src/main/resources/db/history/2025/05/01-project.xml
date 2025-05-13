@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-01-project" author="stepanov">
+        <createTable tableName="PROJECT">
+            <column name="ID" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="PROJECT_PKEY"/>
+            </column>
+            <column name="CODE" type="VARCHAR(32)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="UK_PROJECT_CODE"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(4096)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE_CODE" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STARTPOINT" type="TIMESTAMP"/>
+            <column name="ENDPOINT" type="TIMESTAMP"/>
+            <column name="PARENT_ID" type="BIGINT"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="PROJECT"
+                baseColumnNames="PARENT_ID"
+                referencedTableName="PROJECT"
+                referencedColumnNames="ID"
+                constraintName="FK_PROJECT_PARENT"
+                onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

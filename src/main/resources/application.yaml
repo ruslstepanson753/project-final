@@ -8,15 +8,10 @@ app:
     max-pool-size: 100
 
 spring:
-
- # Ruslan Stepanov's config --------------------------------------------------------------- start
-
-#  profiles:
-#    active: prod
-
   config:
     import: optional:application-secrets.properties
-
+#  cache:
+#    type: caffeine
   security:
     oauth2:
       client:
@@ -25,6 +20,8 @@ spring:
             scope:
               - email
           google:
+            client-id: 329113642700-f8if6pu68j2repq3ef6umd5jgiliup60.apps.googleusercontent.com
+            client-secret: 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
             scope:
               - email
               - profile
@@ -39,11 +36,6 @@ spring:
             token-uri: https://gitlab.com/oauth/token
             user-info-uri: https://gitlab.com/api/v4/user
             user-name-attribute: email
-
-  # Ruslan Stepanov's config --------------------------------------------------------------- end
-
-  init:
-    mode: never
 
   sql:
     init:
@@ -66,7 +58,7 @@ spring:
         jdbc.batch_size: 20
 
   liquibase:
-    changeLog: "classpath:db/changelog.sql"
+    changeLog: "classpath:db/changelog.xml"
 
   # Jackson Fields Serialization
   jackson:
@@ -111,3 +103,25 @@ server:
       enabled: true # Enable http encoding support
       force: true
 springdoc.swagger-ui.path: /doc
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  cache:
+    type: none
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  liquibase:
+    change-log: classpath:db/changelog.xml
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    user: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true

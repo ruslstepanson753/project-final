@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-02-users-data" author="stepanov">
+        <insert tableName="users">
+            <column name="id" value="1"/>
+            <column name="email" value="user@gmail.com"/>
+            <column name="password" value="{noop}password"/>
+            <column name="first_name" value="userFirstName"/>
+            <column name="last_name" value="userLastName"/>
+            <column name="display_name" value="userDisplayName"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="2"/>
+            <column name="email" value="admin@gmail.com"/>
+            <column name="password" value="{noop}admin"/>
+            <column name="first_name" value="adminFirstName"/>
+            <column name="last_name" value="adminLastName"/>
+            <column name="display_name" value="adminDisplayName"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="3"/>
+            <column name="email" value="guest@gmail.com"/>
+            <column name="password" value="{noop}guest"/>
+            <column name="first_name" value="guestFirstName"/>
+            <column name="last_name" value="guestLastName"/>
+            <column name="display_name" value="guestDisplayName"/>
+        </insert>
+        <insert tableName="users">
+            <column name="id" value="4"/>
+            <column name="email" value="manager@gmail.com"/>
+            <column name="password" value="{noop}manager"/>
+            <column name="first_name" value="managerFirstName"/>
+            <column name="last_name" value="managerLastName"/>
+            <column name="display_name" value="managerDisplayName"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

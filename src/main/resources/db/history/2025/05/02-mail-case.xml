@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-02-mail-case" author="stepanov">
+        <createTable tableName="MAIL_CASE">
+            <column name="ID" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="MAIL_CASE_PKEY"/>
+            </column>
+            <column name="EMAIL" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_TIME" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RESULT" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TEMPLATE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
