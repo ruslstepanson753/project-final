@@ -38,6 +38,7 @@ public class TaskUtil {
     }
 
     static void fillExtraFields(TaskToFull taskToFull, List<Activity> activities) {
+        System.out.println();
         if (!activities.isEmpty()) {
             taskToFull.setUpdated(activities.get(0).getUpdated());
             for (Activity latest : activities) {

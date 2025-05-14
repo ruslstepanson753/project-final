@@ -26,6 +26,11 @@
             <column name="CODE"/>
         </createIndex>
 
+        <addUniqueConstraint
+                tableName="SPRINT"
+                columnNames="PROJECT_ID, CODE"
+                constraintName="UK_SPRINT_PROJECT_CODE"/>
+
         <!-- Изменения для таблицы TASK -->
         <dropColumn tableName="TASK"
                     columnName="DESCRIPTION"/>

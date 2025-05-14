@@ -8,12 +8,6 @@
     <changeSet id="2025-05-14-08-test-activities" author="claude">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="ACTIVITY"/>
-            <sqlCheck expectedResult="2">
-                SELECT COUNT(*) FROM USERS WHERE ID IN (1,2)
-            </sqlCheck>
-            <sqlCheck expectedResult="2">
-                SELECT COUNT(*) FROM TASK WHERE ID IN (1,2)
-            </sqlCheck>
         </preConditions>
 
         <comment>Добавление тестовой активности по задачам</comment>

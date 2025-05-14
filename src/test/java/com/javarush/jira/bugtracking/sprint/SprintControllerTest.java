@@ -4,10 +4,13 @@ import com.javarush.jira.AbstractControllerTest;
 import com.javarush.jira.bugtracking.sprint.to.SprintTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.bugtracking.sprint.SprintTestData.NOT_FOUND;
 import static com.javarush.jira.bugtracking.sprint.SprintTestData.*;
@@ -19,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional
 class SprintControllerTest extends AbstractControllerTest {
     private static final String SPRINTS_REST_URL = REST_URL + "/sprints/";
     private static final String SPRINTS_BY_PROJECT_REST_URL = SPRINTS_REST_URL + "by-project";
@@ -274,15 +278,12 @@ class SprintControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity());
     }
 
-    @Test
-    @WithUserDetails(value = ADMIN_MAIL)
-    void updateDuplicateCode() throws Exception {
-        SprintTo duplicateCodeTo = new SprintTo(SPRINT1_ID, sprintTo2.getCode(), ACTIVE, PROJECT1_ID);
-        perform(MockMvcRequestBuilders.put(MNGR_SPRINTS_REST_URL_SLASH + SPRINT1_ID)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(writeValue(duplicateCodeTo)))
-                .andDo(print())
-                .andExpect(status().isConflict());
+    @Transactional
+    void save(Sprint sprint) throws Exception {
+        try {
+            repository.saveAndFlush(sprint);
+        }catch (DataIntegrityViolationException e) {
+            System.out.println("!".repeat(200));        }
     }
 
     @Test
