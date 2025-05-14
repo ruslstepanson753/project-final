@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <include file="/db/history/2025/05/00-schema.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/01-project.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/02-mail-case.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/03-reference.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/04-sprint.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/05-users.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/06-profile.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/07-contact.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/08-task.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/09-activity.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/10-task-tag.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/11-user-belong.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/12-attachment.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/13-user-role.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/14-users-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/15-reference-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/16-change-backtracking-tables.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/17-change-task-status-reference.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/18-users-add-on-delete-cascade.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/19-change-user-type-reference.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/20-refactor-reference-aux.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/21-change-uk-user-belong.xml" relativeToChangelogFile="false"/>
+
+    <include file="/db/history/2025/06/01-test-removing-all-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/02-test-users-usersrole-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/03-test-profiles-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/04-test-contacts-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/05-test-projects-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/06-test-sprints-data.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/07-test-tasks.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/08-test-activities.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/06/09-test-user-belong-data.xml" relativeToChangelogFile="false"/>
+
+
+</databaseChangeLog>
+
+
+
+
+

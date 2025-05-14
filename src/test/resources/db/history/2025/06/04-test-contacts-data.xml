@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-04-test-contacts" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="CONTACT"/>
+            <sqlCheck expectedResult="2">
+                SELECT COUNT(*) FROM PROFILE WHERE ID IN (1,2)
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Добавление тестовых контактов пользователей</comment>
+
+        <!-- Вставка контактов с экранированием имени столбца -->
+        <sql>
+            INSERT INTO CONTACT (ID, CODE, "VALUE")
+            VALUES
+                (1, 'skype', 'userSkype'),
+                (1, 'mobile', '+01234567890'),
+                (1, 'website', 'user.com'),
+                (2, 'github', 'adminGitHub'),
+                (2, 'tg', 'adminTg'),
+                (2, 'vk', 'adminVk');
+        </sql>
+
+        <!-- Обновление последовательности для H2 -->
+        <sql dbms="h2">
+            ALTER SEQUENCE IF EXISTS CONTACT_SEQ RESTART WITH 3;
+        </sql>
+    </changeSet>
+</databaseChangeLog>
