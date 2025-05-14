@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-08-test-activities" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="ACTIVITY"/>
+            <sqlCheck expectedResult="2">
+                SELECT COUNT(*) FROM USERS WHERE ID IN (1,2)
+            </sqlCheck>
+            <sqlCheck expectedResult="2">
+                SELECT COUNT(*) FROM TASK WHERE ID IN (1,2)
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Добавление тестовой активности по задачам</comment>
+
+        <!-- Вставка активностей -->
+        <sql>
+            INSERT INTO ACTIVITY(AUTHOR_ID, TASK_ID, UPDATED, COMMENT, TITLE, DESCRIPTION, ESTIMATE, TYPE_CODE, STATUS_CODE, PRIORITY_CODE)
+            VALUES
+                (1, 1, '2023-05-15 09:05:10', NULL, 'Data', NULL, 3, 'epic', 'in_progress', 'low'),
+                (2, 1, '2023-05-15 12:25:10', NULL, 'Data', NULL, NULL, NULL, NULL, 'normal'),
+                (1, 1, '2023-05-15 14:05:10', NULL, 'Data', NULL, 4, NULL, NULL, NULL),
+                (1, 2, '2023-05-15 12:05:10', NULL, 'Trees', 'Trees desc', 4, 'epic', 'in_progress', 'normal');
+        </sql>
+
+        <!-- Обновление последовательности для H2 -->
+        <sql dbms="h2">
+            ALTER TABLE ACTIVITY ALTER COLUMN ID RESTART WITH (SELECT MAX(ID) + 1 FROM ACTIVITY);
+        </sql>
+
+        <!-- Добавляем индексы для улучшения производительности -->
+        <createIndex tableName="ACTIVITY" indexName="IDX_ACTIVITY_TASK_ID">
+            <column name="TASK_ID"/>
+        </createIndex>
+
+        <createIndex tableName="ACTIVITY" indexName="IDX_ACTIVITY_AUTHOR_ID">
+            <column name="AUTHOR_ID"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

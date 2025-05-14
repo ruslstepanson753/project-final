@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-05-test-projects-data" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="PROJECT"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM PROJECT WHERE CODE IN ('PR1', 'PR2')
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Добавление тестовых проектов</comment>
+
+        <!-- Вставка проектов -->
+        <sql>
+            INSERT INTO PROJECT (CODE, TITLE, DESCRIPTION, TYPE_CODE, PARENT_ID)
+            VALUES
+                ('PR1', 'PROJECT-1', 'test project 1', 'task_tracker', NULL),
+                ('PR2', 'PROJECT-2', 'test project 2', 'task_tracker',
+                 (SELECT ID FROM PROJECT WHERE CODE = 'PR1'));
+        </sql>
+
+        <!-- Обновление последовательности для H2 (если используется) -->
+        <sql dbms="h2">
+            ALTER TABLE PROJECT ALTER COLUMN ID RESTART WITH (SELECT MAX(ID) + 1 FROM PROJECT);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

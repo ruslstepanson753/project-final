@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="2025-05-14-01-test-removing" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USERS"/>
+        </preConditions>
+
+        <!-- Удаление записей из таблиц -->
+        <sql>
+            DELETE FROM USER_ROLE;
+        </sql>
+        <sql>
+            DELETE FROM CONTACT;
+        </sql>
+        <sql>
+            DELETE FROM PROFILE;
+        </sql>
+        <sql>
+            DELETE FROM ACTIVITY;
+        </sql>
+        <sql dbms="h2">
+            ALTER TABLE IF EXISTS ACTIVITY ALTER COLUMN ID RESTART WITH 1;
+        </sql>
+
+        <sql>
+            DELETE FROM TASK;
+        </sql>
+        <sql dbms="h2">
+            ALTER TABLE IF EXISTS TASK ALTER COLUMN ID RESTART WITH 1;
+        </sql>
+
+        <sql>
+            DELETE FROM SPRINT;
+        </sql>
+        <sql dbms="h2">
+            ALTER TABLE IF EXISTS SPRINT ALTER COLUMN ID RESTART WITH 1;
+        </sql>
+
+        <sql>
+            DELETE FROM PROJECT;
+        </sql>
+        <sql dbms="h2">
+            ALTER TABLE IF EXISTS PROJECT ALTER COLUMN ID RESTART WITH 1;
+        </sql>
+
+        <sql>
+            DELETE FROM USERS;
+        </sql>
+        <sql dbms="h2">
+            ALTER TABLE IF EXISTS USERS ALTER COLUMN ID RESTART WITH 1;
+        </sql>
+
+        <comment>Удаление всех данных и сброс автоинкрементных полей в таблицах</comment>
+    </changeSet>
+</databaseChangeLog>
