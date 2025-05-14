@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,6 +20,7 @@ import java.util.Set;
 
 import static com.javarush.jira.bugtracking.task.TaskUtil.checkStatusChangePossible;
 
+@ToString
 @Entity
 @Table(name = "task")
 @Getter
@@ -91,5 +93,25 @@ public class Task extends TitleEntity implements HasCode {
     @Override
     public String getCode() {
         return typeCode + '-' + id;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", typeCode='" + typeCode + '\'' +
+                ", statusCode='" + statusCode + '\'' +
+                ", startpoint=" + startpoint +
+                ", endpoint=" + endpoint +
+                ", parent=" + parent +
+                ", parentId=" + parentId +
+                ", project=" + project +
+                ", sprint=" + sprint +
+                ", projectId=" + projectId +
+                ", sprintId=" + sprintId +
+                ", tags=" + tags +
+                "activities=" + activities +
+                '}';
     }
 }

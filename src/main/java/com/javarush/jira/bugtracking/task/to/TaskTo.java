@@ -11,14 +11,14 @@ import lombok.Setter;
 @Getter
 public class TaskTo extends TitleTo implements HasCode, HasIdAndParentId {
     @Code
-    private final String typeCode;
+    protected final String typeCode;
     Long parentId;
     @NotNull
     Long projectId;
     Long sprintId;
     @Setter
     @Code
-    private String statusCode;
+    protected String statusCode;
 
     public TaskTo(Long id, String code, String title, String typeCode, String statusCode, Long parentId, Long projectId, Long sprintId) {
         super(id, code, title);

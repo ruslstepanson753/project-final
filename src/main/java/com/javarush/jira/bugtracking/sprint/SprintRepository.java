@@ -20,4 +20,6 @@ public interface SprintRepository extends TimestampRepository<Sprint> {
 
     @Query("SELECT s FROM Sprint s JOIN FETCH s.project WHERE s.id =:id")
     Optional<Sprint> findFullById(long id);
+
+
 }

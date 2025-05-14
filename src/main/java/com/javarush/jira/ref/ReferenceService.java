@@ -68,4 +68,11 @@ public class ReferenceService {
                 .collect(Collectors.toMap(RefTo::getCode, Function.identity()));
         refSelect.put(type, refToMap);
     }
+
+    // Добавьте метод для полного сброса состояния
+    public void resetCache() {
+        log.debug("Resetting reference cache");
+        initialize(); // Повторная инициализация
+    }
+
 }

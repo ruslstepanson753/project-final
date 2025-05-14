@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.lang.NonNull;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.common.util.JsonUtil.writeValue;
 import static com.javarush.jira.login.internal.web.UserTestData.ADMIN_MAIL;
@@ -23,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Transactional
 public class ReferenceControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ReferenceController.REST_URL + "/";
 
@@ -34,6 +36,7 @@ public class ReferenceControllerTest extends AbstractControllerTest {
 
     @BeforeEach
     void reInit() {
+        referenceService.resetCache();
         referenceService.updateRefs(RefType.TASK);
     }
 
