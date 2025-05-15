@@ -27,13 +27,5 @@
             ALTER TABLE ACTIVITY ALTER COLUMN ID RESTART WITH (SELECT MAX(ID) + 1 FROM ACTIVITY);
         </sql>
 
-        <!-- Добавляем индексы для улучшения производительности -->
-        <createIndex tableName="ACTIVITY" indexName="IDX_ACTIVITY_TASK_ID">
-            <column name="TASK_ID"/>
-        </createIndex>
-
-        <createIndex tableName="ACTIVITY" indexName="IDX_ACTIVITY_AUTHOR_ID">
-            <column name="AUTHOR_ID"/>
-        </createIndex>
     </changeSet>
 </databaseChangeLog>
