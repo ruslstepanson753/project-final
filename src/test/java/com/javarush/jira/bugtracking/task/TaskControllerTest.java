@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
@@ -464,6 +465,8 @@ class TaskControllerTest extends AbstractControllerTest {
         assertFalse(activityRepository.existsById(ACTIVITY1_ID + 1));
     }
 
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Test
     @WithUserDetails(value = USER_MAIL)
     void deletePrimaryActivity() throws Exception {

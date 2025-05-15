@@ -59,6 +59,7 @@ public class ActivityService {
             List<Activity> activities = handler.getRepository().findAllByTaskIdOrderByUpdatedDesc(task.id());
             if (activityStatus != null) {
                 String latestStatus = getLatestValue(activities, Activity::getStatusCode);
+                System.out.println();
                 if (latestStatus == null) {
                     throw new DataConflictException("Primary activity cannot be delete or update with null values");
                 }
