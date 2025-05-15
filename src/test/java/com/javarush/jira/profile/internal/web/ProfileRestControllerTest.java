@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.common.util.JsonUtil.writeValue;
 import static com.javarush.jira.login.internal.web.UserTestData.*;
@@ -22,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Transactional
 class ProfileRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileRestController.REST_URL;
 
@@ -76,6 +77,45 @@ class ProfileRestControllerTest extends AbstractControllerTest {
         PROFILE_MATCHER.assertMatch(profile, ProfileTestData.getUpdated(USER_ID));
     }
 
+    @Test
+    @WithUserDetails(value = USER_MAIL)
+    void invalidProfile() throws Exception {
+        ProfileTo profileTo = ProfileTestData.getInvalidTo();
+        perform(MockMvcRequestBuilders.put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(profileTo)))
+                .andExpect(status().isUnprocessableEntity());
+    }
 
+
+    @Test
+    @WithUserDetails(value = USER_MAIL)
+    void unknownNotificationTo() throws Exception {
+        ProfileTo profileTo = ProfileTestData.getWithUnknownNotificationTo();
+        perform(MockMvcRequestBuilders.put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(profileTo)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @WithUserDetails(value = USER_MAIL)
+    void unknownContactTo() throws Exception {
+        ProfileTo profileTo = ProfileTestData.getWithUnknownContactTo();
+        perform(MockMvcRequestBuilders.put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(profileTo)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    @WithUserDetails(value = USER_MAIL)
+    void contactHtmlUnsafeTo() throws Exception {
+        ProfileTo profileTo = ProfileTestData.getWithContactHtmlUnsafeTo();
+        perform(MockMvcRequestBuilders.put(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(profileTo)))
+                .andExpect(status().isUnprocessableEntity());
+    }
 
 }
