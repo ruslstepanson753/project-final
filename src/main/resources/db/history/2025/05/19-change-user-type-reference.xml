@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-19-change-user-type-reference" author="valeriyemelyanov">
+        <preConditions>
+            <tableExists tableName="REFERENCE"/>
+        </preConditions>
+
+        <!-- First delete all existing user types (REF_TYPE = 5) -->
+        <delete tableName="REFERENCE">
+            <where>REF_TYPE = 5</where>
+        </delete>
+
+        <!-- Then insert the new user type definitions -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="project_author"/>
+            <column name="TITLE" value="Author"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="project_manager"/>
+            <column name="TITLE" value="Manager"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="sprint_author"/>
+            <column name="TITLE" value="Author"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="sprint_manager"/>
+            <column name="TITLE" value="Manager"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task_author"/>
+            <column name="TITLE" value="Author"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task_developer"/>
+            <column name="TITLE" value="Developer"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task_reviewer"/>
+            <column name="TITLE" value="Reviewer"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task_tester"/>
+            <column name="TITLE" value="Tester"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

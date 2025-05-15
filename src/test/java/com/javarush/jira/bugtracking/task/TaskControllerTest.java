@@ -2,6 +2,7 @@ package com.javarush.jira.bugtracking.task;
 
 import com.javarush.jira.AbstractControllerTest;
 import com.javarush.jira.bugtracking.UserBelongRepository;
+import com.javarush.jira.bugtracking.task.mapper.TaskFullMapper;
 import com.javarush.jira.bugtracking.task.to.ActivityTo;
 import com.javarush.jira.bugtracking.task.to.TaskToExt;
 import com.javarush.jira.bugtracking.task.to.TaskToFull;
@@ -11,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskController.REST_URL;
@@ -25,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Transactional
 class TaskControllerTest extends AbstractControllerTest {
     private static final String TASKS_REST_URL_SLASH = REST_URL + "/";
     private static final String TASKS_BY_PROJECT_REST_URL = REST_URL + "/by-project";
@@ -45,7 +49,10 @@ class TaskControllerTest extends AbstractControllerTest {
     private ActivityRepository activityRepository;
     @Autowired
     private UserBelongRepository userBelongRepository;
+    @Autowired
+    private TaskFullMapper taskFullMapper;
 
+    @Transactional
     @Test
     @WithUserDetails(value = USER_MAIL)
     void get() throws Exception {
@@ -458,6 +465,8 @@ class TaskControllerTest extends AbstractControllerTest {
         assertFalse(activityRepository.existsById(ACTIVITY1_ID + 1));
     }
 
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Test
     @WithUserDetails(value = USER_MAIL)
     void deletePrimaryActivity() throws Exception {

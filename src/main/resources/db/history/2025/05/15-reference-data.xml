@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-15-reference-data" author="stepanov">
+        <preConditions>
+            <tableExists tableName="REFERENCE"/>
+        </preConditions>
+
+        <!-- Основные справочники (без AUX) -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task"/>
+            <column name="TITLE" value="Task"/>
+            <column name="REF_TYPE" value="2"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="story"/>
+            <column name="TITLE" value="Story"/>
+            <column name="REF_TYPE" value="2"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="bug"/>
+            <column name="TITLE" value="Bug"/>
+            <column name="REF_TYPE" value="2"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="epic"/>
+            <column name="TITLE" value="Epic"/>
+            <column name="REF_TYPE" value="2"/>
+        </insert>
+
+        <!-- SPRINT_STATUS -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="planning"/>
+            <column name="TITLE" value="Planning"/>
+            <column name="REF_TYPE" value="4"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="active"/>
+            <column name="TITLE" value="Active"/>
+            <column name="REF_TYPE" value="4"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="finished"/>
+            <column name="TITLE" value="Finished"/>
+            <column name="REF_TYPE" value="4"/>
+        </insert>
+
+        <!-- USER_TYPE -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="author"/>
+            <column name="TITLE" value="Author"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="developer"/>
+            <column name="TITLE" value="Developer"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="reviewer"/>
+            <column name="TITLE" value="Reviewer"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="tester"/>
+            <column name="TITLE" value="Tester"/>
+            <column name="REF_TYPE" value="5"/>
+        </insert>
+
+        <!-- PROJECT -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="scrum"/>
+            <column name="TITLE" value="Scrum"/>
+            <column name="REF_TYPE" value="1"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="task_tracker"/>
+            <column name="TITLE" value="Task tracker"/>
+            <column name="REF_TYPE" value="1"/>
+        </insert>
+
+        <!-- CONTACT -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="skype"/>
+            <column name="TITLE" value="Skype"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="tg"/>
+            <column name="TITLE" value="Telegram"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="mobile"/>
+            <column name="TITLE" value="Mobile"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="phone"/>
+            <column name="TITLE" value="Phone"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="website"/>
+            <column name="TITLE" value="Website"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="vk"/>
+            <column name="TITLE" value="VK"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="linkedin"/>
+            <column name="TITLE" value="LinkedIn"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="github"/>
+            <column name="TITLE" value="GitHub"/>
+            <column name="REF_TYPE" value="0"/>
+        </insert>
+
+        <!-- PRIORITY -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="critical"/>
+            <column name="TITLE" value="Critical"/>
+            <column name="REF_TYPE" value="7"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="high"/>
+            <column name="TITLE" value="High"/>
+            <column name="REF_TYPE" value="7"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="normal"/>
+            <column name="TITLE" value="Normal"/>
+            <column name="REF_TYPE" value="7"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="low"/>
+            <column name="TITLE" value="Low"/>
+            <column name="REF_TYPE" value="7"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="neutral"/>
+            <column name="TITLE" value="Neutral"/>
+            <column name="REF_TYPE" value="7"/>
+        </insert>
+
+        <!-- Справочники с AUX полем -->
+        <!-- MAIL_NOTIFICATION -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="assigned"/>
+            <column name="TITLE" value="Assigned"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="1"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="three_days_before_deadline"/>
+            <column name="TITLE" value="Three days before deadline"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="2"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="two_days_before_deadline"/>
+            <column name="TITLE" value="Two days before deadline"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="4"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="one_day_before_deadline"/>
+            <column name="TITLE" value="One day before deadline"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="8"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="deadline"/>
+            <column name="TITLE" value="Deadline"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="16"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="overdue"/>
+            <column name="TITLE" value="Overdue"/>
+            <column name="REF_TYPE" value="6"/>
+            <column name="AUX" value="32"/>
+        </insert>
+
+        <!-- TASK_STATUS -->
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="todo"/>
+            <column name="TITLE" value="ToDo"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="in_progress,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="in_progress"/>
+            <column name="TITLE" value="In progress"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="ready_for_review,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="ready_for_review"/>
+            <column name="TITLE" value="Ready for review"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="review,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="review"/>
+            <column name="TITLE" value="Review"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="in_progress,ready_for_test,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="ready_for_test"/>
+            <column name="TITLE" value="Ready for test"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="test,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="test"/>
+            <column name="TITLE" value="Test"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="done,in_progress,canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="done"/>
+            <column name="TITLE" value="Done"/>
+            <column name="REF_TYPE" value="3"/>
+            <column name="AUX" value="canceled"/>
+        </insert>
+        <insert tableName="REFERENCE">
+            <column name="CODE" value="canceled"/>
+            <column name="TITLE" value="Canceled"/>
+            <column name="REF_TYPE" value="3"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

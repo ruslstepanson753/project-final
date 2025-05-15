@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-18-users-add-on-delete-cascade" author="gkislin">
+        <!-- Update ACTIVITY table constraint -->
+        <dropForeignKeyConstraint
+                baseTableName="ACTIVITY"
+                constraintName="FK_ACTIVITY_USERS"/>
+
+        <addForeignKeyConstraint
+                baseTableName="ACTIVITY"
+                baseColumnNames="AUTHOR_ID"
+                referencedTableName="USERS"
+                referencedColumnNames="ID"
+                constraintName="FK_ACTIVITY_USERS"
+                onDelete="CASCADE"/>
+
+        <!-- Update USER_BELONG table constraint -->
+        <dropForeignKeyConstraint
+                baseTableName="USER_BELONG"
+                constraintName="FK_USER_BELONG"/>
+
+        <addForeignKeyConstraint
+                baseTableName="USER_BELONG"
+                baseColumnNames="USER_ID"
+                referencedTableName="USERS"
+                referencedColumnNames="ID"
+                constraintName="FK_USER_BELONG"
+                onDelete="CASCADE"/>
+
+        <!-- Update ATTACHMENT table constraint -->
+        <dropForeignKeyConstraint
+                baseTableName="ATTACHMENT"
+                constraintName="FK_ATTACHMENT"/>
+
+        <addForeignKeyConstraint
+                baseTableName="ATTACHMENT"
+                baseColumnNames="USER_ID"
+                referencedTableName="USERS"
+                referencedColumnNames="ID"
+                constraintName="FK_ATTACHMENT"
+                onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

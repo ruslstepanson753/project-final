@@ -10,10 +10,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.Value;
 
 import java.time.LocalDateTime;
 
+@ToString
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class ActivityTo extends BaseTo implements HasAuthorId {

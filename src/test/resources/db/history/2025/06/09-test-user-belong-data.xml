@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-09-test-user-belong-data" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER_BELONG"/>
+        </preConditions>
+
+        <comment>Добавление тестовых назначений пользователей на задачи</comment>
+
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="2"/>
+            <column name="USER_TYPE_CODE" value="task_developer"/>
+            <column name="STARTPOINT" value="2023-06-14 08:35:10"/>
+            <column name="ENDPOINT" value="2023-06-14 08:55:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="2"/>
+            <column name="USER_TYPE_CODE" value="task_reviewer"/>
+            <column name="STARTPOINT" value="2023-06-14 09:35:10"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="USER_TYPE_CODE" value="task_developer"/>
+            <column name="STARTPOINT" value="2023-06-12 11:40:00"/>
+            <column name="ENDPOINT" value="2023-06-12 12:35:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="USER_TYPE_CODE" value="task_developer"/>
+            <column name="STARTPOINT" value="2023-06-13 12:35:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="USER_TYPE_CODE" value="task_tester"/>
+            <column name="STARTPOINT" value="2023-06-14 15:20:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="2"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="2"/>
+            <column name="USER_TYPE_CODE" value="task_developer"/>
+            <column name="STARTPOINT" value="2023-06-08 07:10:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="2"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="USER_TYPE_CODE" value="task_developer"/>
+            <column name="STARTPOINT" value="2023-06-09 14:48:00"/>
+        </insert>
+        <insert tableName="USER_BELONG">
+            <column name="OBJECT_ID" value="2"/>
+            <column name="OBJECT_TYPE" value="2"/>
+            <column name="USER_ID" value="1"/>
+            <column name="USER_TYPE_CODE" value="task_tester"/>
+            <column name="STARTPOINT" value="2023-06-10 16:37:00"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

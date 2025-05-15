@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-06-test-sprints" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="SPRINT"/>
+            <sqlCheck expectedResult="2">
+                SELECT COUNT(*) FROM PROJECT WHERE ID IN (1,2)
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM SPRINT WHERE CODE IN ('SP-1.001','SP-1.002','SP-1.003','SP-1.004','SP-2.001','SP-2.002','SP-2.003')
+            </sqlCheck>
+        </preConditions>
+
+        <comment>Добавление тестовых спринтов для проектов</comment>
+
+        <!-- Вставка спринтов -->
+        <sql>
+            INSERT INTO SPRINT (STATUS_CODE, STARTPOINT, ENDPOINT, CODE, PROJECT_ID)
+            VALUES
+                ('finished', '2023-05-01 08:05:10', '2023-05-07 17:10:01', 'SP-1.001', 1),
+                ('active', '2023-05-01 08:06:00', NULL, 'SP-1.002', 1),
+                ('active', '2023-05-01 08:07:00', NULL, 'SP-1.003', 1),
+                ('planning', '2023-05-01 08:08:00', NULL, 'SP-1.004', 1),
+                ('active', '2023-05-10 08:06:00', NULL, 'SP-2.001', 2),
+                ('planning', '2023-05-10 08:07:00', NULL, 'SP-2.002', 2),
+                ('planning', '2023-05-10 08:08:00', NULL, 'SP-2.003', 2);
+        </sql>
+
+        <!-- Обновление последовательности для H2 -->
+        <sql dbms="h2">
+            ALTER TABLE SPRINT ALTER COLUMN ID RESTART WITH (SELECT MAX(ID) + 1 FROM SPRINT);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

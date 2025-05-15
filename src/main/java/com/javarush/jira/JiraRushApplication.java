@@ -16,9 +16,7 @@ import java.util.Arrays;
 public class JiraRushApplication {
 
     public static void main(String[] args) {
-
-        ConfigurableApplicationContext run = SpringApplication.run(JiraRushApplication.class, args);
-        System.out.println("Активные профили: " + Arrays.toString(run.getEnvironment().getActiveProfiles()));
+        ConfigurableApplicationContext context = SpringApplication.run(JiraRushApplication.class, args);
     }
 
 }

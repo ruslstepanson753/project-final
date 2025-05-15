@@ -8,15 +8,10 @@ app:
     max-pool-size: 100
 
 spring:
-
- # Ruslan Stepanov's config --------------------------------------------------------------- start
-
-#  profiles:
-#    active: prod
-
   config:
     import: optional:application-secrets.properties
-
+#  cache:
+#    type: caffeine
   security:
     oauth2:
       client:
@@ -40,14 +35,9 @@ spring:
             user-info-uri: https://gitlab.com/api/v4/user
             user-name-attribute: email
 
-  # Ruslan Stepanov's config --------------------------------------------------------------- end
-
-  init:
-    mode: never
-
   sql:
     init:
-      mode: always
+      mode: never
 
   jpa:
     show-sql: true
@@ -66,7 +56,7 @@ spring:
         jdbc.batch_size: 20
 
   liquibase:
-    changeLog: "classpath:db/changelog.sql"
+    changeLog: "classpath:db/changelog.xml"
 
   # Jackson Fields Serialization
   jackson:
@@ -111,3 +101,28 @@ server:
       enabled: true # Enable http encoding support
       force: true
 springdoc.swagger-ui.path: /doc
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  sql:
+    init:
+      mode: never  # Также отключаем для тестов, так как инициализацию делает Liquibase
+  cache:
+    type: none
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  liquibase:
+    change-log: classpath:db/changelog-test.xml
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    user: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true

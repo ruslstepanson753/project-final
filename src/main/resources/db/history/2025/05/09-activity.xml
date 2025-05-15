@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-09-activity" author="stepanov">
+        <createTable tableName="ACTIVITY">
+            <column name="ID" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="ACTIVITY_PKEY"/>
+            </column>
+            <column name="AUTHOR_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TASK_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="UPDATED" type="TIMESTAMP"/>
+            <column name="COMMENT" type="VARCHAR(4096)"/>
+            <!-- Поля истории изменений -->
+            <column name="TITLE" type="VARCHAR(1024)"/>
+            <column name="DESCRIPTION" type="VARCHAR(4096)"/>
+            <column name="ESTIMATE" type="INTEGER"/>
+            <column name="TYPE_CODE" type="VARCHAR(32)"/>
+            <column name="STATUS_CODE" type="VARCHAR(32)"/>
+            <column name="PRIORITY_CODE" type="VARCHAR(32)"/>
+        </createTable>
+
+        <!-- Связь с пользователем (автором активности) -->
+        <addForeignKeyConstraint
+                baseTableName="ACTIVITY"
+                baseColumnNames="AUTHOR_ID"
+                referencedTableName="USERS"
+                referencedColumnNames="ID"
+                constraintName="FK_ACTIVITY_USERS"/>
+
+        <!-- Связь с задачей (каскадное удаление) -->
+        <addForeignKeyConstraint
+                baseTableName="ACTIVITY"
+                baseColumnNames="TASK_ID"
+                referencedTableName="TASK"
+                referencedColumnNames="ID"
+                constraintName="FK_ACTIVITY_TASK"
+                onDelete="CASCADE"/>
+    </changeSet>
+</databaseChangeLog>

@@ -13,7 +13,7 @@ public class CodeTo extends BaseTo implements HasCode {
     @Setter
     boolean enabled = true;
     @Code
-    String code;
+    protected String code;
 
     public CodeTo(Long id, @NonNull String code) {
         super(id);

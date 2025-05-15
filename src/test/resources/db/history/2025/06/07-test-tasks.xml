@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-14-07-test-tasks" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="TASK"/>
+        </preConditions>
+
+        <comment>Добавление тестовых задач для спринтов</comment>
+        <insert tableName="TASK">
+            <column name="TITLE" value="Data"/>
+            <column name="TYPE_CODE" value="epic"/>
+            <column name="STATUS_CODE" value="in_progress"/>
+            <column name="PROJECT_ID" value="1"/>
+            <column name="SPRINT_ID" value="1"/>
+            <column name="STARTPOINT" value="2023-05-15 09:05:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="Trees"/>
+            <column name="TYPE_CODE" value="epic"/>
+            <column name="STATUS_CODE" value="in_progress"/>
+            <column name="PROJECT_ID" value="1"/>
+            <column name="SPRINT_ID" value="1"/>
+            <column name="STARTPOINT" value="2023-05-15 12:05:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="task-3"/>
+            <column name="TYPE_CODE" value="task"/>
+            <column name="STATUS_CODE" value="ready_for_test"/>
+            <column name="PROJECT_ID" value="2"/>
+            <column name="SPRINT_ID" value="5"/>
+            <column name="STARTPOINT" value="2023-06-14 09:28:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="task-4"/>
+            <column name="TYPE_CODE" value="task"/>
+            <column name="STATUS_CODE" value="ready_for_review"/>
+            <column name="PROJECT_ID" value="2"/>
+            <column name="SPRINT_ID" value="5"/>
+            <column name="STARTPOINT" value="2023-06-14 09:28:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="task-5"/>
+            <column name="TYPE_CODE" value="task"/>
+            <column name="STATUS_CODE" value="todo"/>
+            <column name="PROJECT_ID" value="2"/>
+            <column name="SPRINT_ID" value="5"/>
+            <column name="STARTPOINT" value="2023-06-14 09:28:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="task-6"/>
+            <column name="TYPE_CODE" value="task"/>
+            <column name="STATUS_CODE" value="done"/>
+            <column name="PROJECT_ID" value="2"/>
+            <column name="SPRINT_ID" value="5"/>
+            <column name="STARTPOINT" value="2023-06-14 09:28:10"/>
+        </insert>
+        <insert tableName="TASK">
+            <column name="TITLE" value="task-7"/>
+            <column name="TYPE_CODE" value="task"/>
+            <column name="STATUS_CODE" value="canceled"/>
+            <column name="PROJECT_ID" value="2"/>
+            <column name="SPRINT_ID" value="5"/>
+            <column name="STARTPOINT" value="2023-06-14 09:28:10"/>
+        </insert>
+        <!-- Обновление последовательности для H2 -->
+        <sql dbms="h2">
+            ALTER TABLE TASK ALTER COLUMN ID RESTART WITH (SELECT MAX(ID) + 1 FROM TASK);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

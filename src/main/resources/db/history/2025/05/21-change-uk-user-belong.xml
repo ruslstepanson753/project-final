@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2025-05-13-21-change-uk-user-belong" author="ishlyakhtenkov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER_BELONG"/>
+        </preConditions>
+
+        <!-- Удаление существующего ограничения, если оно есть -->
+        <sql>
+            ALTER TABLE USER_BELONG DROP CONSTRAINT IF EXISTS UK_USER_BELONG;
+        </sql>
+
+        <!-- Удаление существующего триггера, если он есть -->
+        <sql>
+            DROP TRIGGER IF EXISTS TR_USER_BELONG_UNIQ_CHECK;
+        </sql>
+
+        <!-- Создание триггера для проверки уникальности -->
+        <sql>
+            CREATE TRIGGER TR_USER_BELONG_UNIQ_CHECK
+                BEFORE INSERT, UPDATE ON USER_BELONG
+                                   FOR EACH ROW
+                                   CALL "com.javarush.jira.common.util.UserBelongUniquenessCheck";
+        </sql>
+    </changeSet>
+</databaseChangeLog>

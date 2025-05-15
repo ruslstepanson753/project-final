@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="2025-05-14-03-test-profiles-data" author="claude">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="PROFILE"/>
+            <sqlCheck expectedResult="4">
+                SELECT COUNT(*) FROM USERS WHERE ID IN (1,2,3,4)
+            </sqlCheck>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*) FROM PROFILE WHERE ID IN (1,2)
+            </sqlCheck>
+        </preConditions>
+        <comment>Добавление тестовых профилей пользователей</comment>
+        <!-- Вставка профилей с привязкой к существующим пользователям -->
+        <sql>
+            INSERT INTO PROFILE (ID, LAST_FAILED_LOGIN, LAST_LOGIN, MAIL_NOTIFICATIONS)
+            VALUES
+                (1, NULL, NULL, 49),  -- Профиль для user@gmail.com
+                (2, NULL, NULL, 14);   -- Профиль для admin@gmail.com
+        </sql>
+        <!-- Для H2 не используем сброс счетчика, чтобы избежать ошибки "Attempt to define a second primary key" -->
+        <!-- Вместо этого полагаемся на автоматическое увеличение счетчика после вставки -->
+
+    </changeSet>
+</databaseChangeLog>

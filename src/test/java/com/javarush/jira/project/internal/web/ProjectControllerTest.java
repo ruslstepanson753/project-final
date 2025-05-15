@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.javarush.jira.common.util.JsonUtil.writeValue;
 import static com.javarush.jira.login.internal.web.UserTestData.MANAGER_MAIL;
@@ -18,7 +19,7 @@ import static com.javarush.jira.project.internal.web.ProjectTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@Transactional
 public class ProjectControllerTest extends AbstractControllerTest {
     private static final String REST_URL_PROJECT = BaseHandler.REST_URL + "/projects";
     private static final String REST_URL_MNGR_PROJECT = BaseHandler.REST_URL + "/mngr/projects";
