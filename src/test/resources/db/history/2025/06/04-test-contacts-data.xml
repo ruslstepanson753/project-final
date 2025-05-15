@@ -17,7 +17,7 @@
 
         <!-- Вставка контактов с экранированием имени столбца -->
         <sql>
-            INSERT INTO CONTACT (ID, CODE, "VALUE")
+            INSERT INTO CONTACT (ID, CODE, PROFILE_VALUE)
             VALUES
                 (1, 'skype', 'userSkype'),
                 (1, 'mobile', '+01234567890'),
