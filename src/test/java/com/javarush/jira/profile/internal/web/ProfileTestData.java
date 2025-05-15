@@ -20,7 +20,8 @@ public class ProfileTestData {
             Set.of(new ContactTo("skype", "userSkype"),
                     new ContactTo("mobile", "+01234567890"),
                     new ContactTo("website", "user.com")));
-    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(null,
+
+    public static ProfileTo GUEST_PROFILE_EMPTY_TO = new ProfileTo(3L,
             Set.of(),
             Set.of());
 

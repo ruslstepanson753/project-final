@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.javarush.jira.login.internal.web.UserTestData.GUEST_MAIL;
 import static com.javarush.jira.login.internal.web.UserTestData.USER_MAIL;
 import static com.javarush.jira.profile.internal.web.ProfileTestData.*;
 import static com.javarush.jira.project.internal.web.ProjectTestData.*;
@@ -26,14 +27,22 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     @WithUserDetails(value = USER_MAIL)
-    void get() throws Exception {
-
-
+    void getUserProfile() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL ))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(PROFILE_TO_MATCHER.contentJson(USER_PROFILE_TO));
+    }
+
+    @Test
+    @WithUserDetails(value = GUEST_MAIL)
+    void getGuestProfile() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL ))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(PROFILE_TO_MATCHER.contentJson(GUEST_PROFILE_EMPTY_TO));
     }
 
 }
