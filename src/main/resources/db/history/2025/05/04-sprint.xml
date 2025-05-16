@@ -16,13 +16,22 @@
             </column>
             <column name="STARTPOINT" type="TIMESTAMP"/>
             <column name="ENDPOINT" type="TIMESTAMP"/>
-            <column name="TITLE" type="VARCHAR(1024)">
+            <column name="CODE" type="VARCHAR(1024)">
                 <constraints nullable="false"/>
             </column>
             <column name="PROJECT_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <createIndex tableName="SPRINT"
+                     indexName="UK_SPRINT_PROJECT_INDEX">
+            <column name="PROJECT_ID"/>
+            <column name="CODE"/>
+        </createIndex>
+        <addUniqueConstraint
+                tableName="SPRINT"
+                columnNames="PROJECT_ID, CODE"
+                constraintName="UK_SPRINT_PROJECT_CODE"/>
 
         <addForeignKeyConstraint
                 baseTableName="SPRINT"

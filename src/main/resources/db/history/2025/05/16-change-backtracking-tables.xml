@@ -6,30 +6,6 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="2025-05-13-16-change-backtracking-tables" author="gkislin">
-        <!-- Изменения для таблицы SPRINT -->
-        <renameColumn tableName="SPRINT"
-                      oldColumnName="TITLE"
-                      newColumnName="CODE"
-                      columnDataType="VARCHAR(32)"/>
-
-        <modifyDataType tableName="SPRINT"
-                        columnName="CODE"
-                        newDataType="VARCHAR(32)"/>
-
-        <addNotNullConstraint tableName="SPRINT"
-                              columnName="CODE"
-                              columnDataType="VARCHAR(32)"/>
-
-        <createIndex tableName="SPRINT"
-                     indexName="UK_SPRINT_PROJECT_CODE">
-            <column name="PROJECT_ID"/>
-            <column name="CODE"/>
-        </createIndex>
-
-        <addUniqueConstraint
-                tableName="SPRINT"
-                columnNames="PROJECT_ID, CODE"
-                constraintName="UK_SPRINT_PROJECT_CODE"/>
 
         <!-- Изменения для таблицы TASK -->
         <dropColumn tableName="TASK"
