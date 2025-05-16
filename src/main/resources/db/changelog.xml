@@ -26,7 +26,7 @@
     <include file="/db/history/2025/05/18-users-add-on-delete-cascade.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/19-change-user-type-reference.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/20-refactor-reference-aux.xml" relativeToChangelogFile="false"/>
-    <include file="/db/history/2025/05/21-change-uk-user-belong.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/21-change-uk-user-belong-posgres.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
 
 

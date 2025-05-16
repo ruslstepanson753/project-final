@@ -23,12 +23,12 @@ import java.io.Serializable;
 public class TaskTag implements HasId {
     @Id
     @NotNull
-    @Column(name = "id")
+    @Column(name = "task_id")
     private Long id;
 
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "task_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Transient
     private Task task;

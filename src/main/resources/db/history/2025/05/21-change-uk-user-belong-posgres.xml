@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="2025-05-13-21-change-uk-user-belong-posgres" author="ishlyakhtenkov">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="USER_BELONG"/>
+        </preConditions>
+
+        <!-- Создание проверки уникальности для PostgreSQL -->
+        <sql splitStatements="false">
+            -- Создаем функцию для проверки уникальности
+            CREATE OR REPLACE FUNCTION user_belong_uniqueness_check()
+            RETURNS TRIGGER AS $$
+            BEGIN
+                -- Проверка уникальности user_id и sprint_id
+                IF (TG_OP = 'INSERT' OR
+                   (TG_OP = 'UPDATE' AND
+                    (OLD.user_id != NEW.user_id OR OLD.sprint_id != NEW.sprint_id)
+                   )
+                  ) THEN
+                    -- Проверяем, существует ли уже такая связь пользователя со спринтом
+                    IF EXISTS (
+                        SELECT 1 FROM user_belong
+                        WHERE user_id = NEW.user_id
+                        AND sprint_id = NEW.sprint_id
+                        AND id != NEW.id
+                    ) THEN
+                        RAISE EXCEPTION 'Нарушение уникальности: пользователь уже привязан к этому спринту';
+            END IF;
+            END IF;
+
+            RETURN NEW;
+            END;
+            $$ LANGUAGE plpgsql;
+
+            -- Создаем триггер, который будет использовать эту функцию
+            DROP TRIGGER IF EXISTS tr_user_belong_uniq_check ON user_belong;
+
+            CREATE TRIGGER tr_user_belong_uniq_check
+                BEFORE INSERT OR UPDATE ON user_belong
+                                     FOR EACH ROW
+                                     EXECUTE FUNCTION user_belong_uniqueness_check();
+        </sql>
+    </changeSet>
+</databaseChangeLog>
