@@ -75,8 +75,28 @@ public class Handlers {
         public TaskTagHandler(TaskTagRepository repository, TaskTagMapper mapper) {
             super(repository, mapper);
         }
+
         public void save (TaskTagTo taskTagTo) {
             TaskTag taskTag =  getMapper().toEntity(taskTagTo);
+            getRepository().save(taskTag);
+        }
+
+        public void putById(TaskTagTo taskTagTo, Long id) {
+            TaskTag taskTag =  getMapper().toEntity(taskTagTo);
+            taskTag.setId(id);
+            getRepository().save(taskTag);
+        }
+
+        public void patchById (TaskTagTo taskTagTo,Long id) {
+            String newTag = taskTagTo.getTag();
+            Long newTaskId = taskTagTo.getTaskId();
+            TaskTag taskTag =  getRepository().findById(id).orElseThrow();
+            if(newTag!=null){
+                taskTag.setTag(newTag);
+            }
+            if(newTaskId!=null){
+                taskTag.setTaskId(newTaskId);
+            }
             getRepository().save(taskTag);
         }
     }

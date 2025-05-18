@@ -1,24 +1,17 @@
 package com.javarush.jira.bugtracking.task_tag;
 
 import com.javarush.jira.bugtracking.Handlers;
-import com.javarush.jira.bugtracking.task.*;
-import com.javarush.jira.bugtracking.task.to.TaskToFull;
 import com.javarush.jira.bugtracking.task_tag.to.TaskTagTo;
-import com.javarush.jira.ref.RefTo;
-import com.javarush.jira.ref.RefType;
-import com.javarush.jira.ref.internal.Reference;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static com.javarush.jira.common.BaseHandler.createdResponse;
-import static com.javarush.jira.common.util.validation.ValidationUtil.checkNew;
 
 @Slf4j
 @RestController
@@ -68,80 +61,25 @@ public class TaskTagController {
         log.debug("create {}", taskTagTo);
         handler.save(taskTagTo);
     }
-//
-//    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void update(@Valid @RequestBody TaskToExt taskTo, @PathVariable long id) {
-//        taskService.update(taskTo, id);
-//    }
-//
-//    @PatchMapping("/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void enable(@PathVariable long id, @RequestParam boolean enabled) {
-//        handler.enable(id, enabled);
-//    }
-//
-//    @PatchMapping("/{id}/change-status")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void changeTaskStatus(@PathVariable long id, @NotBlank @RequestParam String statusCode) {
-//        log.info("change task(id={}) status to {}", id, statusCode);
-//        taskService.changeStatus(id, statusCode);
-//    }
-//
-//    @PatchMapping("/{id}/change-sprint")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void changeTaskSprint(@PathVariable long id, @Nullable @RequestParam Long sprintId) {
-//        log.info("change task(id={}) sprint to {}", id, sprintId);
-//        taskService.changeSprint(id, sprintId);
-//    }
-//
-//    @GetMapping("/assignments/by-sprint")
-//    public List<UserBelong> getTaskAssignmentsBySprint(@RequestParam long sprintId) {
-//        log.info("get task assignments for user {} for sprint {}", AuthUser.authId(), sprintId);
-//        return userBelongRepository.findActiveTaskAssignmentsForUserBySprint(AuthUser.authId(), sprintId);
-//    }
-//
-//    @PatchMapping("/{id}/assign")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void assign(@PathVariable long id, @NotBlank @RequestParam String userType) {
-//        log.info("assign user {} as {} to task {}", AuthUser.authId(), userType, id);
-//        taskService.assign(id, userType, AuthUser.authId());
-//    }
-//
-//    @PatchMapping("/{id}/unassign")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void unAssign(@PathVariable long id, @NotBlank @RequestParam String userType) {
-//        log.info("unassign user {} as {} from task {}", AuthUser.authId(), userType, id);
-//        taskService.unAssign(id, userType, AuthUser.authId());
-//    }
-//
-//    @GetMapping("/{id}/comments")
-//    public List<ActivityTo> getComments(@PathVariable long id) {
-//        log.info("get comments for task with id={}", id);
-//        return activityHandler.getMapper().toToList(activityHandler.getRepository().findAllComments(id));
-//    }
-//
-//    @PostMapping(value = "/activities", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Activity create(@Valid @RequestBody ActivityTo activityTo) {
-//        return activityService.create(activityTo);
-//    }
-//
-//    @PutMapping(path = "/activities/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void update(@Valid @RequestBody ActivityTo activityTo, @PathVariable long id) {
-//        activityService.update(activityTo, id);
-//    }
-//
-//    @DeleteMapping("/activities/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable long id) {
-//        activityService.delete(id);
-//    }
-//
-//    private record TaskTreeNode(TaskTo taskTo, List<TaskController.TaskTreeNode> subNodes) implements ITreeNode<TaskTo, TaskController.TaskTreeNode> {
-//        public TaskTreeNode(TaskTo taskTo) {
-//            this(taskTo, new LinkedList<>());
-//        }
-//    }
+
+    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void put(@Valid @RequestBody TaskTagTo taskTagTo, @PathVariable long id) {
+        log.debug("update {}", taskTagTo);
+        handler.putById(taskTagTo,id);
+    }
+
+    @PatchMapping("/{id}/change-status")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void patch(@Valid @RequestBody TaskTagTo taskTagTo, @PathVariable long id) {
+        log.debug("update {}", taskTagTo);
+        handler.patchById(taskTagTo,id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable long id) {
+        handler.delete(id);
+    }
+
 }
