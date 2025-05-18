@@ -75,6 +75,10 @@ public class Handlers {
         public TaskTagHandler(TaskTagRepository repository, TaskTagMapper mapper) {
             super(repository, mapper);
         }
+        public void save (TaskTagTo taskTagTo) {
+            TaskTag taskTag =  getMapper().toEntity(taskTagTo);
+            getRepository().save(taskTag);
+        }
     }
 
     @Component

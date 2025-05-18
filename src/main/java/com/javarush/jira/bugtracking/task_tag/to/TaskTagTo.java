@@ -17,8 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 public class TaskTagTo extends BaseTo {
     @NotNull
-    Long id;
-
+    Long taskId;
     @Size(min = 2, max = 256)
     @Column(name = "tag", nullable = false)
     @NoHtml

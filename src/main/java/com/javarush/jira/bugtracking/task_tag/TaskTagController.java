@@ -4,12 +4,21 @@ import com.javarush.jira.bugtracking.Handlers;
 import com.javarush.jira.bugtracking.task.*;
 import com.javarush.jira.bugtracking.task.to.TaskToFull;
 import com.javarush.jira.bugtracking.task_tag.to.TaskTagTo;
+import com.javarush.jira.ref.RefTo;
+import com.javarush.jira.ref.RefType;
+import com.javarush.jira.ref.internal.Reference;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.javarush.jira.common.BaseHandler.createdResponse;
+import static com.javarush.jira.common.util.validation.ValidationUtil.checkNew;
 
 @Slf4j
 @RestController
@@ -54,17 +63,11 @@ public class TaskTagController {
                         .findAllByTaskId(taskId));
     }
 
-//    @GetMapping("/by-project")
-//    public List<TaskTo> getAllByProject(@RequestParam long projectId) {
-//        log.info("get all for project {}", projectId);
-//        return handler.getMapper().toToList(handler.getRepository().findAllByProjectId(projectId));
-//    }
-//
-//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public ResponseEntity<Task> createWithLocation(@Valid @RequestBody TaskToExt taskTo) {
-//        return createdResponse(REST_URL, taskService.create(taskTo));
-//    }
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void create(@Valid @RequestBody TaskTagTo taskTagTo) {
+        log.debug("create {}", taskTagTo);
+        handler.save(taskTagTo);
+    }
 //
 //    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseStatus(HttpStatus.NO_CONTENT)
