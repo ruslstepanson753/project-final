@@ -18,46 +18,42 @@ import java.util.List;
 public class TaskTagController {
 
     public static final String REST_URL = "/api/tasks-tags";
-    private final TaskTagService taskTagService;
     private final Handlers.TaskTagHandler handler;
 
-//    @GetMapping("/{id}")
-//    public TaskTagTo get(@PathVariable long id) {
-//        log.info("get task-tag by id={}", id);
-//        return handler
-//                .getMapper()
-//                .toTo(
-//                        handler.getRepository().
-//                                findByIdWithTaskAndProject(id).
-//                                orElseThrow(RuntimeException::new)
-//                );
-//    }
+    @GetMapping("/{id}")
+    public TaskTagTo get(@PathVariable long id) {
+        log.info("get task-tag by id={}", id);
+        return handler
+                .getMapper()
+                .toTo(
+                        handler.getRepository().
+                                findByIdWithTaskAndProject(id).
+                                orElseThrow(RuntimeException::new)
+                );
+    }
+
+    @GetMapping()
+    public List<TaskTagTo> getAll() {
+        log.info("get all task-tag ");
+        return handler
+                .getMapper()
+                .toToList(handler
+                        .getRepository()
+                                .findAll()
+                );
+    }
+
 
     @GetMapping("/by-task")
     public List<TaskTagTo> getAllByTask(@RequestParam long taskId) {
         log.info("get all tags for task {}", taskId);
         return handler
                 .getMapper()
-                .toToList(
-                        handler.getRepository().findAllByTaskId(taskId));
+                .toToList(handler
+                        .getRepository()
+                        .findAllByTaskId(taskId));
     }
-//
-//    private List<TaskTo> sortTasksAsTree(List<TaskTo> tasks) {
-//        List<TaskController.TaskTreeNode> roots = Util.makeTree(tasks, TaskController.TaskTreeNode::new);
-//        List<TaskTo> sortedTasks = new ArrayList<>();
-//        roots.forEach(root -> {
-//            sortedTasks.add(root.taskTo);
-//            List<TaskController.TaskTreeNode> subNodes = root.subNodes();
-//            LinkedList<TaskController.TaskTreeNode> stack = new LinkedList<>(subNodes);
-//            while (!stack.isEmpty()) {
-//                TaskController.TaskTreeNode node = stack.poll();
-//                sortedTasks.add(node.taskTo);
-//                node.subNodes().forEach(stack::addFirst);
-//            }
-//        });
-//        return sortedTasks;
-//    }
-//
+
 //    @GetMapping("/by-project")
 //    public List<TaskTo> getAllByProject(@RequestParam long projectId) {
 //        log.info("get all for project {}", projectId);
