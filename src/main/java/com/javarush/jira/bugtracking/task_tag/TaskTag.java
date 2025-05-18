@@ -14,7 +14,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serializable;
-@ToString
 @Entity
 @Table(name = "task_tag")
 @NoArgsConstructor
@@ -26,11 +25,8 @@ public class TaskTag implements HasId {
     @Column(name = "task_id")
     private Long id;
 
-
     @ManyToOne
-    @JoinColumn(name = "task_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @Transient
+    @JoinColumn(name = "task_id", insertable = false, updatable = false)
     private Task task;
 
     @NotBlank
@@ -44,5 +40,12 @@ public class TaskTag implements HasId {
         this.tag = tag;
     }
 
+    @Override
+    public String toString() {
+        return "TaskTag{" +
+                "id=" + id +
+                ", tag='" + tag + '\'' +
+                '}';
+    }
 }
 

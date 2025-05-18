@@ -37,7 +37,7 @@ spring:
 
   sql:
     init:
-      mode: never
+      mode: always
 
   jpa:
     show-sql: true
@@ -102,6 +102,8 @@ server:
       force: true
 springdoc.swagger-ui.path: /doc
 
+
+#config for tests-----------------------------------
 ---
 spring:
   config:
