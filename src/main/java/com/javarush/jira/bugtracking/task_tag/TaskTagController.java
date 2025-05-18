@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping(value = TaskTagController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -19,17 +21,26 @@ public class TaskTagController {
     private final TaskTagService taskTagService;
     private final Handlers.TaskTagHandler handler;
 
-    @GetMapping("/{id}")
-    public TaskTagTo get(@PathVariable long id) {
-        log.info("get task by id={}", id);
-        return taskTagService.get(id);
-    }
-
-//    @GetMapping("/by-sprint")
-//    public List<TaskTo> getAllBySprint(@RequestParam long sprintId) {
-//        log.info("get all for sprint {}", sprintId);
-//        return sortTasksAsTree(handler.getMapper().toToList(handler.getRepository().findAllBySprintId(sprintId)));
+//    @GetMapping("/{id}")
+//    public TaskTagTo get(@PathVariable long id) {
+//        log.info("get task-tag by id={}", id);
+//        return handler
+//                .getMapper()
+//                .toTo(
+//                        handler.getRepository().
+//                                findByIdWithTaskAndProject(id).
+//                                orElseThrow(RuntimeException::new)
+//                );
 //    }
+
+    @GetMapping("/by-task")
+    public List<TaskTagTo> getAllByTask(@RequestParam long taskId) {
+        log.info("get all tags for task {}", taskId);
+        return handler
+                .getMapper()
+                .toToList(
+                        handler.getRepository().findAllByTaskId(taskId));
+    }
 //
 //    private List<TaskTo> sortTasksAsTree(List<TaskTo> tasks) {
 //        List<TaskController.TaskTreeNode> roots = Util.makeTree(tasks, TaskController.TaskTreeNode::new);

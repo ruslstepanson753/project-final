@@ -2,6 +2,7 @@ package com.javarush.jira.bugtracking.task_tag;
 
 import com.javarush.jira.bugtracking.task.Task;
 import com.javarush.jira.common.HasId;
+import com.javarush.jira.common.model.BaseEntity;
 import com.javarush.jira.common.util.validation.Code;
 import com.javarush.jira.common.util.validation.NoHtml;
 import com.javarush.jira.profile.internal.model.Profile;
@@ -19,11 +20,11 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TaskTag implements HasId {
-    @Id
+public class TaskTag extends BaseEntity {
+
     @NotNull
     @Column(name = "task_id")
-    private Long id;
+    private Long taskId;
 
     @ManyToOne
     @JoinColumn(name = "task_id", insertable = false, updatable = false)
@@ -35,8 +36,9 @@ public class TaskTag implements HasId {
     @NoHtml
     private String tag;
 
-    public TaskTag(long id, String tag) {
-        this.id = id;
+    public TaskTag(long id, long taskId, String tag) {
+        super(id);
+        this.taskId = taskId;
         this.tag = tag;
     }
 

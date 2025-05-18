@@ -325,3 +325,8 @@ values (6, 1, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress
        (5, 118, '2023-05-16 11:10:10', null, 'UI tab of tasks', null, null, null, null, 'high'),
        (11, 118, '2023-05-16 12:30:10', null, 'UI tab of tasks', null, 2, null, null, null);
 
+INSERT INTO task_tag (id,task_id, tag)
+values (1,1,'tag1'),
+       (2,1,'tag2'),
+       (3,1,'tag3'),
+       (4,2,'tag22222')

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +15,7 @@ import java.util.Optional;
 public interface TaskTagRepository extends BaseRepository<TaskTag> {
     @Query("SELECT tt FROM TaskTag tt JOIN FETCH tt.task t JOIN FETCH t.project WHERE tt.id = :id")
     Optional<TaskTag> findByIdWithTaskAndProject(@Param("id") Long id);
+
+    @Query("SELECT  tt FROM TaskTag tt  WHERE tt.taskId = :taskId")
+    Collection<TaskTag> findAllByTaskId(@Param("taskId") long taskId);
 }
