@@ -1,6 +1,6 @@
 #  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 app:
-  host-url: jdbc:postgresql://postgres-db:5432/jira
+  host-url: jdbc:postgresql:/localhost:5432/jira
   test-mail: jira4jr@gmail.com
   templates-update-cache: 5s
   mail-sending-props:
@@ -8,6 +8,9 @@ app:
     max-pool-size: 100
 
 spring:
+  messages:
+    encoding: UTF-8
+    basename: messages
   config:
     import: optional:application-secrets.properties
 #  cache:
