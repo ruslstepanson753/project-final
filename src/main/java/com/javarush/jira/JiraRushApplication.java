@@ -1,5 +1,11 @@
 package com.javarush.jira;
 
+import com.javarush.jira.bugtracking.task.ActivityService;
+import com.javarush.jira.bugtracking.task.Task;
+import com.javarush.jira.bugtracking.task.TaskRepository;
+import com.javarush.jira.bugtracking.task.TaskService;
+import com.javarush.jira.bugtracking.task.mapper.TaskMapper;
+import com.javarush.jira.bugtracking.task.to.TaskTo;
 import com.javarush.jira.bugtracking.task_tag.TaskTag;
 import com.javarush.jira.bugtracking.task_tag.TaskTagRepository;
 import com.javarush.jira.common.internal.config.AppProperties;

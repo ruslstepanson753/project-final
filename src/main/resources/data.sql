@@ -113,7 +113,7 @@ sequence SPRINT_ID_SEQ restart with 1000;
 INSERT INTO TASK (TITLE, TYPE_CODE, STATUS_CODE, PROJECT_ID, SPRINT_ID, STARTPOINT)
 values ('Data', 'epic', 'in_progress', 1, 1,
         now() + random() * interval '5 minutes' + random() * interval '20 seconds'),
-       ('Trees', 'epic', 'in_progress', 1, 1,
+       ('Trees', 'epic', 'done', 1, 1,
         now() + random() * interval '5 minutes' + random() * interval '20 seconds'),
        ('UI', 'epic', 'in_progress', 1, 1, now() + random() * interval '5 minutes' + random() * interval '20 seconds'),
        ('Sprint', 'epic', 'in_progress', 1, 1,
@@ -319,6 +319,9 @@ sequence TASK_ID_SEQ restart with 1000;
 INSERT INTO ACTIVITY(AUTHOR_ID, TASK_ID, UPDATED, COMMENT, TITLE, DESCRIPTION, ESTIMATE, TYPE_CODE, STATUS_CODE,
                      PRIORITY_CODE)
 values (6, 1, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress', 'low'),
+       (6, 2, '2023-05-15 09:05:10', null, 'Data', null, 3, 'epic', 'in_progress', 'low'),
+       (6, 2, '2023-06-26 09:05:10', null, 'Data', null, 3, 'epic', 'ready_for_review', 'low'),
+       (6, 2, '2023-07-13 09:05:10', null, 'Data', null, 3, 'epic', 'done', 'low'),
        (5, 1, '2023-05-15 12:25:10', null, 'Data', null, null, null, null, 'normal'),
        (6, 1, '2023-05-15 14:05:10', null, 'Data', null, 4, null, null, null), ---task 118----
        (11, 118, '2023-05-16 10:05:10', null, 'UI tab of tasks', null, 4, 'task', 'in_progress', 'normal'),

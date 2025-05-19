@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.javarush.jira.bugtracking.task.TaskUtil.getLatestValue;
@@ -18,7 +20,12 @@ import static com.javarush.jira.bugtracking.task.TaskUtil.getLatestValue;
 public class ActivityService {
     private final TaskRepository taskRepository;
 
+    private final String STATUS_IN_PROGRESS = "in_progress";
+    private final String STATUS_READY_FOR_REVIEW = "ready_for_review";
+    private final String STATUS_DONE = "done";
+
     private final Handlers.ActivityHandler handler;
+    private final ActivityRepository activityRepository;
 
     private static void checkBelong(HasAuthorId activity) {
         if (activity.getAuthorId() != AuthUser.authId()) {
@@ -76,8 +83,38 @@ public class ActivityService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Long getDurationOfWorkProcess(TaskTo taskTo) {
-        return null;
+        checkTaskToByNull(taskTo);
+        Long taskId = taskTo.getId();
+        LocalDateTime timeInProcess = activityRepository.findFirstTimeByTaskIdAndByStatus(taskId,STATUS_IN_PROGRESS);
+        LocalDateTime timeReadyForReview = activityRepository.findFirstTimeByTaskIdAndByStatus(taskId,STATUS_READY_FOR_REVIEW);
+
+        if ((timeInProcess == null)||(timeReadyForReview == null)) {
+            return 0L;
+        }
+
+        return Duration.between(timeInProcess, timeReadyForReview).toDays();
+    }
+
+    @Transactional(readOnly = true)
+    public Long getDurationOfTestProcess(TaskTo taskTo) {
+        checkTaskToByNull(taskTo);
+        Long taskId = taskTo.getId();
+        LocalDateTime timeDone = activityRepository.findFirstTimeByTaskIdAndByStatus(taskId,STATUS_DONE);
+        LocalDateTime timeReadyForReview = activityRepository.findFirstTimeByTaskIdAndByStatus(taskId,STATUS_READY_FOR_REVIEW);
+
+        if ((timeDone == null)||(timeReadyForReview == null)) {
+            return 0L;
+        }
+
+        return Duration.between(timeReadyForReview, timeDone).toDays();
+    }
+
+    private static void checkTaskToByNull(TaskTo taskTo) {
+        if (taskTo == null || taskTo.getId() == null) {
+            throw new IllegalArgumentException("TaskTo or its ID cannot be null");
+        }
     }
 
 }
