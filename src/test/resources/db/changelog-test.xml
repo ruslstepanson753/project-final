@@ -16,7 +16,7 @@
     <include file="/db/history/2025/05/08-task.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/09-activity.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/10-task-tag.xml" relativeToChangelogFile="false"/>
-    <include file="/db/history/2025/05/11-user-belong.xml" relativeToChangelogFile="false"/>
+    <include file="/db/history/2025/05/11-user-belong-test.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/12-attachment.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/13-user-role.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/14-users-data.xml" relativeToChangelogFile="false"/>
@@ -26,7 +26,7 @@
     <include file="/db/history/2025/05/18-users-add-on-delete-cascade.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/19-change-user-type-reference.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/05/20-refactor-reference-aux.xml" relativeToChangelogFile="false"/>
-    <include file="/db/history/2025/05/21-change-uk-user-belong.xml" relativeToChangelogFile="false"/>
+<!--    <include file="/db/history/2025/05/21-change-uk-user-belong.xml" relativeToChangelogFile="false"/>-->
 
     <include file="/db/history/2025/06/01-test-removing-all-data.xml" relativeToChangelogFile="false"/>
     <include file="/db/history/2025/06/02-test-users-usersrole-data.xml" relativeToChangelogFile="false"/>

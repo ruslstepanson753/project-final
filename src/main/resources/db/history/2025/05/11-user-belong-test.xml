@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="2025-05-13-11-user-belong" author="stepanov">
+        <createTable tableName="USER_BELONG">
+            <column name="ID" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="PK_USER_BELONG"/>
+            </column>
+            <column name="OBJECT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="OBJECT_TYPE" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USER_TYPE_CODE" type="VARCHAR(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STARTPOINT" type="TIMESTAMP"/>
+            <column name="ENDPOINT" type="TIMESTAMP"/>
+        </createTable>
+
+        <!-- Связь с таблицей USERS -->
+        <addForeignKeyConstraint
+                baseTableName="USER_BELONG"
+                baseColumnNames="USER_ID"
+                referencedTableName="USERS"
+                referencedColumnNames="ID"
+                constraintName="FK_USER_BELONG"/>
+
+        <!-- Создание индекса для USER_ID -->
+        <createIndex
+                tableName="USER_BELONG"
+                indexName="IX_USER_BELONG_USER_ID">
+            <column name="USER_ID"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
