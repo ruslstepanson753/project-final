@@ -66,4 +66,6 @@ public class AppConfig {
         @JsonAnyGetter
         Map<String, Object> getProperties();
     }
+
+
 }
