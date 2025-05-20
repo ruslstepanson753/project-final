@@ -4,8 +4,9 @@
 	//Инструкция по запуску:
 
 - клонировать репозиторий на жёсткий диск
-- в докере перейти в директорию проекта
-- в докере выполнить команду: docker-compose up
+- запустить докер
+- открыть CMD или PowerShel, перейти в директорию проекта
+- выполнить команду: docker-compose up -d
 
   //Отчёт по выполнению задач:
 
@@ -49,8 +50,9 @@ IN ENGLISH LANGUAGE
 	//Instructions for launch:
 
 - clone the repository to the hard drive
-- in Docker, navigate to the project directory
-- in Docker, run the command: docker-compose up
+- start Docker
+- open CMD or PowerShell and navigate to the project directory
+- run the command: docker-compose up -d
 
   //Task completion report:
 
