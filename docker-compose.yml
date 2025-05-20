@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # База данных PostgreSQL
+  postgres-db:
+    image: postgres
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: jira
+      POSTGRES_PASSWORD: JiraRush
+      POSTGRES_DB: jira
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - jira-network
+    restart: unless-stopped
+
+  # Приложение Jira
+  jira-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jira-app
+    depends_on:
+      - postgres-db
+    ports:
+      - "8080:8080"
+    networks:
+      - jira-network
+    restart: unless-stopped
+
+  # Nginx сервер
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - jira-app
+    networks:
+      - jira-network
+    restart: unless-stopped
+
+# Определение сети
+networks:
+  jira-network:
+    driver: bridge
